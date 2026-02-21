@@ -1,5 +1,6 @@
 package org.jacklak_imated_jobfrfr.oresoft;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -23,9 +24,25 @@ public final class ORESoft extends JavaPlugin implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerDmgPlayer(EntityDamageByEntityEvent event) {
-        if (!(event.getEntity() instanceof Player damaged && event.getDamager() instanceof Player damager)) return;
+        if (!(event.getEntity() instanceof Player damaged)) return;
+
+        Player damager = null;
+
+        if (event.getDamager() instanceof Player p) {
+            damager = p;
+        }
+
+        else if (event.getDamager() instanceof Projectile projectile) {
+            if (projectile.getShooter() instanceof Player p) {
+                damager = p;
+            }
+        }
+
+        if (damager == null) return;
+
         Lobby lobby = LobbyManager.getLobbyByPlayer(damaged);
         if (lobby == null) return;
+
         GameState gameState = gameStates.get(lobby.getLobbyId());
         if (gameState == GameState.GRACE_PERIOD) {
             damager.sendMessage("§cYou are in the grace period!");

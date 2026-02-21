@@ -84,6 +84,9 @@ public final class ORESoft extends JavaPlugin implements Listener {
         gameStates.put(lobbyId, GameState.GRACE_PERIOD);
         Bukkit.getScheduler().runTaskLater(this, () -> {
             gameStates.put(lobbyId, GameState.FIGHTING);
+            for (Player player : lobby.getPlayers()) {
+                player.sendMessage("§cThe grace period is over! You may now PvP!");
+            }
         }, 40 * 20L);
 
         World world = Bukkit.getWorld(lobby.getWorldFolder().getName());

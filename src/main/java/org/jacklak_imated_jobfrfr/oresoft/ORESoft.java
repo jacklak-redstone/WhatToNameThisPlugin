@@ -1,5 +1,4 @@
-package org.jacklak_imated.oresoft;
-import org.bukkit.Bukkit;
+package org.jacklak_imated_jobfrfr.oresoft;
 import org.bukkit.plugin.java.JavaPlugin;
 import wueffi.MiniGameCore.managers.LobbyManager;
 

@@ -1,4 +1,4 @@
-package org.jacklak_imated.oresoft;
+package org.jacklak_imated_jobfrfr.oresoft;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;

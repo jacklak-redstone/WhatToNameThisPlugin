@@ -116,7 +116,7 @@ public final class ORESoft extends JavaPlugin implements Listener {
                 continue;
             var inv = chest.getInventory();
             if (inv.isEmpty()) {
-                inv.setItem(new Random().nextInt(inv.getSize()), LootItem.chooseItem(rand));
+                inv.addItem(LootItem.chooseItem(rand), LootItem.chooseItem(rand));
             }
         }
     }

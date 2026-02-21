@@ -50,48 +50,45 @@ public class LoadWorld {
 
     private static void unzip(InputStream zipStream, File destDir) throws IOException {
         byte[] buffer = new byte[1024];
-        ZipInputStream zis = new ZipInputStream(zipStream);
-        ZipEntry zipEntry = zis.getNextEntry();
 
-        while (zipEntry != null) {
-            File newFile = newFile(destDir, zipEntry);
+        try (ZipInputStream zis = new ZipInputStream(zipStream)) {
+            ZipEntry zipEntry;
+            while ((zipEntry = zis.getNextEntry()) != null) {
+                String entryPath = zipEntry.getName();
+                int slashIdx = entryPath.indexOf('/');
+                if (slashIdx == -1) {
+                    zis.closeEntry();
+                    continue;
+                }
+                String strippedPath = entryPath.substring(slashIdx + 1);
+                if (strippedPath.isEmpty()) {
+                    zis.closeEntry();
+                    continue;
+                }
 
-            if (zipEntry.isDirectory()) {
-                if (!newFile.isDirectory() && !newFile.mkdirs()) {
-                    throw new IOException("Failed to create directory " + newFile);
-                }
-            } else {
-                File parent = newFile.getParentFile();
-                if (!parent.isDirectory() && !parent.mkdirs()) {
-                    throw new IOException("Failed to create directory " + parent);
+                File newFile = new File(destDir, strippedPath);
+
+                if (zipEntry.isDirectory()) {
+                    if (!newFile.isDirectory() && !newFile.mkdirs()) {
+                        throw new IOException("Failed to create directory " + newFile);
+                    }
+                } else {
+                    File parent = newFile.getParentFile();
+                    if (!parent.isDirectory() && !parent.mkdirs()) {
+                        throw new IOException("Failed to create directory " + parent);
+                    }
+
+                    try (FileOutputStream fos = new FileOutputStream(newFile)) {
+                        int len;
+                        while ((len = zis.read(buffer)) > 0) {
+                            fos.write(buffer, 0, len);
+                        }
+                    }
                 }
 
-                FileOutputStream fos = new FileOutputStream(newFile);
-                int len;
-                while ((len = zis.read(buffer)) > 0) {
-                    fos.write(buffer, 0, len);
-                }
-                fos.close();
+                zis.closeEntry();
             }
-
-            zipEntry = zis.getNextEntry();
         }
-
-        zis.closeEntry();
-        zis.close();
-    }
-
-    private static File newFile(File destinationDir, ZipEntry zipEntry) throws IOException {
-        File destFile = new File(destinationDir, zipEntry.getName());
-
-        String destDirPath = destinationDir.getCanonicalPath();
-        String destFilePath = destFile.getCanonicalPath();
-
-        if (!destFilePath.startsWith(destDirPath + File.separator)) {
-            throw new IOException("Entry is outside of the target directory: " + zipEntry.getName());
-        }
-
-        return destFile;
     }
 
     private static void updateMiniGameCoreConfig(Plugin plugin) throws IOException {

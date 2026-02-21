@@ -1,5 +1,5 @@
 name: ORE-Soft
 version: '1.0'
-main: jacklak_imated.oresoft.ORESoft
+main: org.jacklak_imated.oresoft.ORESoft
 api-version: '1.21'
 authors: [ "Imated", "Jacklak" ]

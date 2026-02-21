@@ -18,6 +18,7 @@ public class LootItem {
             new LootItem(Material.STONE_AXE, 1, 9),
             new LootItem(Material.IRON_AXE, 1, 2),
             new LootItem(Material.WOODEN_AXE, 1, 18),
+            new LootItem(Material.GOLDEN_APPLE, 1, 1)
     };
 
     public LootItem(Material i, int max, float percent) {

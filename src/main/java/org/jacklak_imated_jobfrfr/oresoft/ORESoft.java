@@ -11,6 +11,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import wueffi.MiniGameCore.api.GameOverEvent;
 import wueffi.MiniGameCore.api.GameStartEvent;
 import wueffi.MiniGameCore.managers.LobbyManager;
@@ -69,6 +71,7 @@ public final class ORESoft extends JavaPlugin implements Listener {
 
         Lobby lobby = event.getLobby();
         String lobbyId = lobby.getLobbyId();
+        PotionEffect invis = new PotionEffect(PotionEffectType.INVISIBILITY, PotionEffect.INFINITE_DURATION, 1, true, false);
 
         for (Player player : lobby.getPlayers()) {
             ItemStack bow = new ItemStack(Material.BOW);
@@ -80,6 +83,7 @@ public final class ORESoft extends JavaPlugin implements Listener {
             }
 
             player.give(bow);
+            player.addPotionEffect(invis);
         }
 
         gameStates.put(lobbyId, GameState.GRACE_PERIOD);

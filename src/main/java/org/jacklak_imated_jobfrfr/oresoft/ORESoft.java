@@ -8,12 +8,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import wueffi.MiniGameCore.api.GameOverEvent;
 import wueffi.MiniGameCore.api.GameStartEvent;
-import wueffi.MiniGameCore.api.MiniGameCoreAPI;
 import wueffi.MiniGameCore.managers.LobbyManager;
 import wueffi.MiniGameCore.utils.Lobby;
 
@@ -22,7 +21,7 @@ import java.util.Random;
 
 public final class ORESoft extends JavaPlugin implements Listener {
     public LobbyManager lobbyManager;
-    private HashMap<String, GameState> gameStates;
+    private HashMap<String, GameState> gameStates = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -67,10 +66,8 @@ public final class ORESoft extends JavaPlugin implements Listener {
             return;
         }
 
-        String lobbyId = event.getLobby().getLobbyId();
-
-        LobbyManager lobbyManager = MiniGameCoreAPI.getLobbyManager();
-        Lobby lobby = lobbyManager.getLobby(lobbyId);
+        Lobby lobby = event.getLobby();
+        String lobbyId = lobby.getLobbyId();
 
         for (Player player : lobby.getPlayers()) {
             ItemStack bow = new ItemStack(Material.BOW);
@@ -84,6 +81,11 @@ public final class ORESoft extends JavaPlugin implements Listener {
             player.give(bow);
         }
 
+        gameStates.put(lobbyId, GameState.GRACE_PERIOD);
+        Bukkit.getScheduler().runTaskLater(this, () -> {
+            gameStates.put(lobbyId, GameState.FIGHTING);
+        }, 40 * 20L);
+
         World world = Bukkit.getWorld(lobby.getWorldFolder().getName());
         if (world == null) {
             getLogger().warning("World wasn't loaded for Lobby " + lobbyId + "(" + lobby.getWorldFolder().getName() + ")");
@@ -96,6 +98,12 @@ public final class ORESoft extends JavaPlugin implements Listener {
         for (var chunk : world.getLoadedChunks()) {
             fillChests(chunk);
         }
+    }
+
+    @EventHandler
+    public void onGameEnd(GameOverEvent event) {
+        String lobbyId = event.getLobby().getLobbyId();
+        gameStates.remove(lobbyId);
     }
 
     public void fillChests(Chunk chunk) {

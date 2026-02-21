@@ -1,13 +1,16 @@
 package org.jacklak_imated_jobfrfr.oresoft;
 import org.bukkit.*;
 import org.bukkit.block.Chest;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import wueffi.MiniGameCore.api.GameStartEvent;
 import wueffi.MiniGameCore.api.MiniGameCoreAPI;
@@ -69,9 +72,21 @@ public final class ORESoft extends JavaPlugin implements Listener {
         LobbyManager lobbyManager = MiniGameCoreAPI.getLobbyManager();
         Lobby lobby = lobbyManager.getLobby(lobbyId);
 
+        for (Player player : lobby.getPlayers()) {
+            ItemStack bow = new ItemStack(Material.BOW);
+            ItemMeta bowMeta = bow.getItemMeta();
+
+            if (bowMeta != null) {
+                bowMeta.setUnbreakable(true);
+                bowMeta.addEnchant(Enchantment.INFINITY, 1, true);
+            }
+
+            player.give(bow);
+        }
+
         World world = Bukkit.getWorld(lobby.getWorldFolder().getName());
         if (world == null) {
-            getLogger().warning("World wasnt loaded for Lobby " + lobbyId + "(" + lobby.getWorldFolder().getName() + ")");
+            getLogger().warning("World wasn't loaded for Lobby " + lobbyId + "(" + lobby.getWorldFolder().getName() + ")");
             return;
         }
 
@@ -97,7 +112,8 @@ public final class ORESoft extends JavaPlugin implements Listener {
     public ItemStack getRandomItem() {
         var items = new Material[] {
                 Material.WIND_CHARGE,
-                Material.FIRE_CHARGE
+                Material.FIRE_CHARGE,
+                Material.BAKED_POTATO
         };
 
         var picked = items[new Random().nextInt(items.length)];
@@ -107,6 +123,6 @@ public final class ORESoft extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-
+        getLogger().info("Goodbye from ORESoft...");
     }
 }

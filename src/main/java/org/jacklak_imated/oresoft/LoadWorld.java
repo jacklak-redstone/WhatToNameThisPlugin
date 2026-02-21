@@ -15,9 +15,9 @@ public class LoadWorld {
         try {
             copyWorldFromResources(plugin);
             updateMiniGameCoreConfig(plugin);
-            plugin.getLogger().info("ORE-Soft world and config setup!");
+            plugin.getLogger().info("ORESoft world and config setup!");
         } catch (Exception e) {
-            plugin.getLogger().log(Level.SEVERE, "Error setting up ORE-Soft world and config", e);
+            plugin.getLogger().log(Level.SEVERE, "Error setting up ORESoft world and config", e);
         }
     }
 
@@ -115,9 +115,9 @@ public class LoadWorld {
             availableGames.add("ORE-Soft");
             config.set("available-games", availableGames);
             config.save(configFile);
-            plugin.getLogger().info("Added ORE-Soft to MiniGameCore config.yml");
+            plugin.getLogger().info("Added ORESoft to MiniGameCore config.yml");
         } else {
-            plugin.getLogger().info("ORE-Soft already exists in MiniGameCore config.yml");
+            plugin.getLogger().info("ORESoft already exists in MiniGameCore config.yml");
         }
     }
 }

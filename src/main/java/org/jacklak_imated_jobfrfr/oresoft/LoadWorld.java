@@ -24,14 +24,14 @@ public class LoadWorld {
     private static void copyWorldFromResources(Plugin plugin) throws IOException {
         File serverRoot = plugin.getServer().getWorldContainer().getAbsoluteFile().getParentFile();
         File miniGamesDir = new File(serverRoot, "plugins/MiniGameCore/MiniGames");
-        File targetWorldDir = new File(miniGamesDir, "map_1");
+        File targetWorldDir = new File(miniGamesDir, "ORESoft_world");
 
         if (!miniGamesDir.exists()) {
             miniGamesDir.mkdirs();
         }
 
         if (targetWorldDir.exists()) {
-            plugin.getLogger().info("map_1 already exists, skipping copy.");
+            plugin.getLogger().info("ORESoft_world already exists, skipping copy.");
             return;
         }
 

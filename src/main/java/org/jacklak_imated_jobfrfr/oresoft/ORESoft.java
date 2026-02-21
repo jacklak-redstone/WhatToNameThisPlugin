@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public final class ORESoft extends JavaPlugin implements Listener {
-    public LobbyManager lobbyManager;
+    private LobbyManager lobbyManager;
     private HashMap<String, GameState> gameStates = new HashMap<>();
     private Random rand = new Random();
 

@@ -6,9 +6,9 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Random;
 
 public class LootItem {
-    public Material item;
-    public int maxAmount;
-    public float percentRarity;
+    private final Material item;
+    private final int maxAmount;
+    private final float percentRarity;
 
     public LootItem(Material i, int max, float percent) {
         item = i;

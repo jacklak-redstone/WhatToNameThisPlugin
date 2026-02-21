@@ -111,8 +111,8 @@ public class LoadWorld {
 
         List<String> availableGames = config.getStringList("available-games");
 
-        if (!availableGames.contains("ORE-Soft")) {
-            availableGames.add("ORE-Soft");
+        if (!availableGames.contains("ORESoft")) {
+            availableGames.add("ORESoft");
             config.set("available-games", availableGames);
             config.save(configFile);
             plugin.getLogger().info("Added ORESoft to MiniGameCore config.yml");

@@ -72,16 +72,15 @@ public final class ORESoft extends JavaPlugin implements Listener {
         Lobby lobby = event.getLobby();
         String lobbyId = lobby.getLobbyId();
         PotionEffect invis = new PotionEffect(PotionEffectType.INVISIBILITY, PotionEffect.INFINITE_DURATION, 1, true, false);
+        ItemStack bow = new ItemStack(Material.BOW);
+        ItemMeta bowMeta = bow.getItemMeta();
+
+        if (bowMeta != null) {
+            bowMeta.setUnbreakable(true);
+            bowMeta.addEnchant(Enchantment.INFINITY, 1, true);
+        }
 
         for (Player player : lobby.getPlayers()) {
-            ItemStack bow = new ItemStack(Material.BOW);
-            ItemMeta bowMeta = bow.getItemMeta();
-
-            if (bowMeta != null) {
-                bowMeta.setUnbreakable(true);
-                bowMeta.addEnchant(Enchantment.INFINITY, 1, true);
-            }
-
             player.give(bow);
             player.addPotionEffect(invis);
         }

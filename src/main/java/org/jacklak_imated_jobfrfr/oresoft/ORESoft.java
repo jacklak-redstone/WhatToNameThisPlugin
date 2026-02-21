@@ -22,6 +22,7 @@ import java.util.Random;
 public final class ORESoft extends JavaPlugin implements Listener {
     public LobbyManager lobbyManager;
     private HashMap<String, GameState> gameStates = new HashMap<>();
+    private Random rand = new Random();
 
     @Override
     public void onEnable() {
@@ -115,21 +116,9 @@ public final class ORESoft extends JavaPlugin implements Listener {
                 continue;
             var inv = chest.getInventory();
             if (inv.isEmpty()) {
-                inv.setItem(new Random().nextInt(inv.getSize()), getRandomItem());
+                inv.setItem(new Random().nextInt(inv.getSize()), LootItem.chooseItem(rand));
             }
         }
-    }
-
-    public ItemStack getRandomItem() {
-        var items = new Material[] {
-                Material.WIND_CHARGE,
-                Material.FIRE_CHARGE,
-                Material.BAKED_POTATO
-        };
-
-        var picked = items[new Random().nextInt(items.length)];
-        var amount = new Random().nextInt(8) + 1;
-        return new ItemStack(picked, amount);
     }
 
     @Override

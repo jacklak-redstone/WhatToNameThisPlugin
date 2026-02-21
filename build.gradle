@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'org.jacklak'
+group = 'org.jacklak_imated'
 version = '1.0-SNAPSHOT'
 
 repositories {

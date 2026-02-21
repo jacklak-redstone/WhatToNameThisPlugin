@@ -8,7 +8,7 @@ public final class ORESoft extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getLogger().info("Starting up BedWars Plugin...");
+        getLogger().info("Starting up ORESoft Plugin...");
 
         LoadWorld.setup(this);
     }

@@ -25,6 +25,7 @@ public final class ORESoft extends JavaPlugin implements Listener {
     public void onPlayerDmgPlayer(EntityDamageByEntityEvent event) {
         if (!(event.getEntity() instanceof Player damaged && event.getDamager() instanceof Player damager)) return;
         Lobby lobby = LobbyManager.getLobbyByPlayer(damaged);
+        if (lobby == null) return;
         GameState gameState = gameStates.get(lobby.getLobbyId());
         if (gameState == GameState.GRACE_PERIOD) {
             damager.sendMessage("§cYou are in the grace period!");

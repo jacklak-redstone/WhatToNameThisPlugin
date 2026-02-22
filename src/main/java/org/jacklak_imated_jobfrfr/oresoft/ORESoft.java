@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -81,6 +82,37 @@ public final class ORESoft extends JavaPlugin implements Listener {
         }
 
         for (Player player : lobby.getPlayers()) {
+            player.sendMessage("§cWelcome to ORESoft! Your goal: be the last player standing. Good luck, and have fun!");
+
+            int red = rand.nextInt(256);
+            int green = rand.nextInt(256);
+            int blue = rand.nextInt(256);
+
+            ItemStack helmet = new ItemStack(Material.LEATHER_HELMET);
+            LeatherArmorMeta helmetMeta = (LeatherArmorMeta) helmet.getItemMeta();
+            helmetMeta.setColor(Color.fromRGB(red, green, blue));
+            helmet.setItemMeta(helmetMeta);
+
+            ItemStack chestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
+            LeatherArmorMeta chestplateMeta = (LeatherArmorMeta) chestplate.getItemMeta();
+            chestplateMeta.setColor(Color.fromRGB(red, green, blue));
+            chestplate.setItemMeta(chestplateMeta);
+
+            ItemStack leggings = new ItemStack(Material.LEATHER_LEGGINGS);
+            LeatherArmorMeta leggingsMeta = (LeatherArmorMeta) leggings.getItemMeta();
+            leggingsMeta.setColor(Color.fromRGB(red, green, blue));
+            leggings.setItemMeta(leggingsMeta);
+
+            ItemStack boots = new ItemStack(Material.LEATHER_BOOTS);
+            LeatherArmorMeta bootsMeta = (LeatherArmorMeta) boots.getItemMeta();
+            bootsMeta.setColor(Color.fromRGB(red, green, blue));
+            boots.setItemMeta(bootsMeta);
+
+            player.getInventory().setHelmet(helmet);
+            player.getInventory().setChestplate(chestplate);
+            player.getInventory().setLeggings(leggings);
+            player.getInventory().setBoots(boots);
+
             player.give(bow);
             player.addPotionEffect(invis);
         }

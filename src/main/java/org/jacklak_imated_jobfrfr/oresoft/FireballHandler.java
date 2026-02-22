@@ -22,7 +22,7 @@ public class FireballHandler implements Listener {
         if (!"ORESoft".equals(lobby.getGameName())) return;
         Action action = event.getAction();
         if (!(action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK)) return;
-        if (event.getPlayer().getInventory().getItemInMainHand().getType() != Material.FIRE_CHARGE) return;
+        if (player.getInventory().getItemInMainHand().getType() != Material.FIRE_CHARGE) return;
         event.setCancelled(true);
 
         if (player.getGameMode() != GameMode.CREATIVE) {

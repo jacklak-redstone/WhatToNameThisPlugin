@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 import wueffi.MiniGameCore.managers.LobbyManager;
 import wueffi.MiniGameCore.utils.Lobby;
 
@@ -22,6 +23,7 @@ public class FireballHandler implements Listener {
         if (!(action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK)) return;
         if (event.getPlayer().getInventory().getItemInMainHand().getType() != Material.FIRE_CHARGE) return;
 
+        player.getInventory().removeItem(new ItemStack(Material.FIRE_CHARGE, 1));
         Fireball fireball = player.launchProjectile(Fireball.class);
         fireball.setYield(4);
         fireball.setVelocity(fireball.getVelocity().multiply(4));

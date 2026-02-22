@@ -2,7 +2,8 @@ ORESoft is a minigame designed to work with MiniGameCore.
 
 # History
 
-ORESoft was originally created on ORE (Open Redstone Engineers) a couple of years ago, on the /play server, hence the name.
+ORESoft (the minigame) was originally created on ORE (Open Redstone Engineers) a couple of years ago, on the /play server, hence the name.
+We have turned this minigame into a plugin.
 
 # Installation
 

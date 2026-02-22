@@ -29,7 +29,7 @@ public class FireballHandler implements Listener {
             player.getInventory().removeItem(new ItemStack(Material.FIRE_CHARGE, 1));
         }
         Fireball fireball = player.launchProjectile(Fireball.class);
-        fireball.setYield(4);
-        fireball.setVelocity(fireball.getVelocity().multiply(4));
+        fireball.setYield(2);
+        fireball.setVelocity(fireball.getVelocity().multiply(2));
     }
 }

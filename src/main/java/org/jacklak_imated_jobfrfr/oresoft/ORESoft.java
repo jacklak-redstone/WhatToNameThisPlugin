@@ -82,6 +82,8 @@ public final class ORESoft extends JavaPlugin implements Listener {
             bowMeta.addEnchant(Enchantment.INFINITY, 1, true);
         }
 
+        bow.setItemMeta(bowMeta);
+
         for (Player player : lobby.getPlayers()) {
             player.sendMessage("§cWelcome to ORESoft! Your goal: be the last player standing. Good luck, and have fun!");
 

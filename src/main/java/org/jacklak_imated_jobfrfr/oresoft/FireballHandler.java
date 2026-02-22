@@ -1,5 +1,6 @@
 package org.jacklak_imated_jobfrfr.oresoft;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
@@ -24,7 +25,9 @@ public class FireballHandler implements Listener {
         if (event.getPlayer().getInventory().getItemInMainHand().getType() != Material.FIRE_CHARGE) return;
         event.setCancelled(true);
 
-        player.getInventory().removeItem(new ItemStack(Material.FIRE_CHARGE, 1));
+        if (player.getGameMode() != GameMode.CREATIVE) {
+            player.getInventory().removeItem(new ItemStack(Material.FIRE_CHARGE, 1));
+        }
         Fireball fireball = player.launchProjectile(Fireball.class);
         fireball.setYield(4);
         fireball.setVelocity(fireball.getVelocity().multiply(4));

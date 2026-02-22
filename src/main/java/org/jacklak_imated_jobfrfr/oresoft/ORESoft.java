@@ -20,6 +20,7 @@ import wueffi.MiniGameCore.api.GameStartEvent;
 import wueffi.MiniGameCore.managers.LobbyManager;
 import wueffi.MiniGameCore.utils.Lobby;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -81,6 +82,11 @@ public final class ORESoft extends JavaPlugin implements Listener {
         if (bowMeta != null) {
             bowMeta.addEnchant(Enchantment.INFINITY, 1, true);
             bowMeta.addEnchant(Enchantment.POWER, 2, true);
+            bowMeta.setDisplayName("§6Shooter 3001 (tm)");
+            bowMeta.setLore(Arrays.asList(
+                    "§7This bow is given to all §6ORESoft §7players.",
+                    "§7May it serve you well."
+            ));
         }
 
         bow.setItemMeta(bowMeta);

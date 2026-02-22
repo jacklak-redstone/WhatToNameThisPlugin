@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.inventory.ItemRarity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -27,12 +28,13 @@ import java.util.Random;
 public final class ORESoft extends JavaPlugin implements Listener {
     private LobbyManager lobbyManager;
     private HashMap<String, GameState> gameStates = new HashMap<>();
-    private Random rand = new Random();
+    private final Random rand = new Random();
 
     @Override
     public void onEnable() {
         getLogger().info("Starting up ORESoft Plugin...");
         getServer().getPluginManager().registerEvents(this, this);
+        getServer().getPluginManager().registerEvents(new FireballHandler(), this);
 
         LoadWorld.setup(this);
     }
@@ -69,7 +71,7 @@ public final class ORESoft extends JavaPlugin implements Listener {
     public void onGameStart(GameStartEvent event) {
         String name = event.getGameName();
 
-        if(!name.equals("ORESoft")) {
+        if(!"ORESoft".equals(name)) {
             return;
         }
 
@@ -87,6 +89,7 @@ public final class ORESoft extends JavaPlugin implements Listener {
                     "§7This bow is given to all §6ORESoft §7players.",
                     "§7May it serve you well."
             ));
+            bowMeta.setRarity(ItemRarity.EPIC);
         }
 
         bow.setItemMeta(bowMeta);
@@ -160,7 +163,7 @@ public final class ORESoft extends JavaPlugin implements Listener {
             if (tileEntity instanceof Chest chest) {
                 var inv = chest.getInventory();
                 if (inv.isEmpty()) {
-                    inv.addItem(LootItem.chooseItem(rand), LootItem.chooseItem(rand));
+                    inv.addItem(LootItem.chooseItem(rand), LootItem.chooseItem(rand), LootItem.chooseItem(rand));
                 }
             } else if (tileEntity instanceof Barrel barrel) {
                 var inv = barrel.getInventory();

@@ -78,7 +78,6 @@ public final class ORESoft extends JavaPlugin implements Listener {
         ItemMeta bowMeta = bow.getItemMeta();
 
         if (bowMeta != null) {
-            bowMeta.setUnbreakable(true);
             bowMeta.addEnchant(Enchantment.INFINITY, 1, true);
         }
 

@@ -8,4 +8,4 @@ We have turned this minigame into a plugin.
 # Installation
 
 Simply put the jar in the plugins folder of your server (you'll need to build with Gradle first). ORESoft will then add itself
-to the config for available minigames, and put its world in the appropriate location.
+to the config for available minigames, and put its world in the appropriate location. You may need to restart the server again.

@@ -34,7 +34,7 @@ public final class ORESoft extends JavaPlugin implements Listener {
     public void onEnable() {
         getLogger().info("Starting up ORESoft Plugin...");
         getServer().getPluginManager().registerEvents(this, this);
-        getServer().getPluginManager().registerEvents(new FireballHandler(), this);
+        getServer().getPluginManager().registerEvents(new FireballHandler(this), this);
 
         LoadWorld.setup(this);
     }

@@ -1,5 +1,6 @@
 package org.jacklak_imated_jobfrfr.oresoft;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Fireball;
@@ -12,7 +13,18 @@ import org.bukkit.inventory.ItemStack;
 import wueffi.MiniGameCore.managers.LobbyManager;
 import wueffi.MiniGameCore.utils.Lobby;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
 public class FireballHandler implements Listener {
+    private Set<UUID> fireBallRateLimits = new HashSet<>();
+    private final ORESoft oreSoft;
+
+    public FireballHandler(ORESoft oreSoft) {
+        this.oreSoft = oreSoft;
+    }
+
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
@@ -23,7 +35,12 @@ public class FireballHandler implements Listener {
         Action action = event.getAction();
         if (!(action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK)) return;
         if (player.getInventory().getItemInMainHand().getType() != Material.FIRE_CHARGE) return;
+        if (fireBallRateLimits.contains(player.getUniqueId())) return;
+
         event.setCancelled(true);
+
+        fireBallRateLimits.add(player.getUniqueId());
+        Bukkit.getScheduler().runTaskLater(oreSoft, () -> { fireBallRateLimits.remove(player.getUniqueId()); }, 10L);
 
         if (player.getGameMode() != GameMode.CREATIVE) {
             player.getInventory().removeItem(new ItemStack(Material.FIRE_CHARGE, 1));

@@ -1,6 +1,7 @@
 package org.jacklak_imated_jobfrfr.oresoft;
 import org.bukkit.*;
 import org.bukkit.block.Chest;
+import org.bukkit.block.Barrel;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -79,6 +80,7 @@ public final class ORESoft extends JavaPlugin implements Listener {
 
         if (bowMeta != null) {
             bowMeta.addEnchant(Enchantment.INFINITY, 1, true);
+            bowMeta.addEnchant(Enchantment.POWER, 2, true);
         }
 
         bow.setItemMeta(bowMeta);
@@ -149,11 +151,16 @@ public final class ORESoft extends JavaPlugin implements Listener {
 
     public void fillChests(Chunk chunk) {
         for (var tileEntity : chunk.getTileEntities()) {
-            if (!(tileEntity instanceof Chest chest))
-                continue;
-            var inv = chest.getInventory();
-            if (inv.isEmpty()) {
-                inv.addItem(LootItem.chooseItem(rand), LootItem.chooseItem(rand));
+            if (tileEntity instanceof Chest chest) {
+                var inv = chest.getInventory();
+                if (inv.isEmpty()) {
+                    inv.addItem(LootItem.chooseItem(rand), LootItem.chooseItem(rand));
+                }
+            } else if (tileEntity instanceof Barrel barrel) {
+                var inv = barrel.getInventory();
+                if (inv.isEmpty()) {
+                    inv.addItem(LootItem.chooseItem(rand), LootItem.chooseItem(rand));
+                }
             }
         }
     }

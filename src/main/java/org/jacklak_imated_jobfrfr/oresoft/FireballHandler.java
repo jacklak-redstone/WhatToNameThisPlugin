@@ -22,6 +22,7 @@ public class FireballHandler implements Listener {
         Action action = event.getAction();
         if (!(action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK)) return;
         if (event.getPlayer().getInventory().getItemInMainHand().getType() != Material.FIRE_CHARGE) return;
+        event.setCancelled(true);
 
         player.getInventory().removeItem(new ItemStack(Material.FIRE_CHARGE, 1));
         Fireball fireball = player.launchProjectile(Fireball.class);

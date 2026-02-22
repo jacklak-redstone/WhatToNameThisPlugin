@@ -35,9 +35,9 @@ public class FireballHandler implements Listener {
         Action action = event.getAction();
         if (!(action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK)) return;
         if (player.getInventory().getItemInMainHand().getType() != Material.FIRE_CHARGE) return;
-        if (fireBallRateLimits.contains(player.getUniqueId())) return;
 
         event.setCancelled(true);
+        if (fireBallRateLimits.contains(player.getUniqueId())) return; // after cancel so they don't accidentally place fire
 
         fireBallRateLimits.add(player.getUniqueId());
         Bukkit.getScheduler().runTaskLater(oreSoft, () -> { fireBallRateLimits.remove(player.getUniqueId()); }, 10L);

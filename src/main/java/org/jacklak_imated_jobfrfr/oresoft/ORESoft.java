@@ -127,7 +127,6 @@ public final class ORESoft extends JavaPlugin implements Listener {
             player.getInventory().setBoots(boots);
 
             player.give(bow);
-            // No arrows!!
             player.addPotionEffect(invis);
         }
 
@@ -157,7 +156,6 @@ public final class ORESoft extends JavaPlugin implements Listener {
     public void onGameEnd(GameOverEvent event) {
         String lobbyId = event.getLobby().getLobbyId();
         gameStates.remove(lobbyId);
-        // Does MGC clear the inventory already?!
     }
 
     public void fillChests(Chunk chunk) {

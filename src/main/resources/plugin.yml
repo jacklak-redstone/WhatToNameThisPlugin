@@ -1,5 +1,5 @@
 name: ORESoft
-version: '1.0'
+version: '1.0.1'
 main: org.jacklak_imated_jobfrfr.oresoft.ORESoft
 api-version: '1.21'
 authors: [ "Imated", "Jacklak", "DefAlsoJobTrust" ]
